@@ -5,7 +5,7 @@
 
 PATH_PROJECT=$(pwd)
 #APP_NAME=${PWD##*/}
-APP_NAME="home_services_ui_kit"
+APP_NAME="CMx"
 
 # build apk
 flutter clean
