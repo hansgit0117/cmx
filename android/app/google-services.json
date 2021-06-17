@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "859797456537",
+    "firebase_url": "https://homeservices-5190e.firebaseio.com",
+    "project_id": "homeservices-5190e",
+    "storage_bucket": "homeservices-5190e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859797456537:android:ff25c75bdd8a3c4451da08",
+        "android_client_info": {
+          "package_name": "com.smartersvision.home_services"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859797456537-krgtqduosj9ua5aksf4l3qpnctk270lu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs6Wst8oOY8Sfgf_JK6MV3GFoOM7ky2AA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "859797456537-krgtqduosj9ua5aksf4l3qpnctk270lu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
