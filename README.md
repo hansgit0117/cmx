@@ -7,7 +7,8 @@
 
 ## General Info
   This is the mobile app version of CMx (https://www.contractexperience.com) - one of the most popular and easy to use contract management software in the world.
-  ![App Preview](https://github.com/sysintellects/cmx-mobile/blob/master/assets/img/Preview.png)
+
+  <img src='https://github.com/sysintellects/cmx-mobile/blob/master/assets/img/Preview.png' width='250'>
   
 ## Setup 
 1. Windows
