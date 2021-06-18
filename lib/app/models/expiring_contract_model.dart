@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../common/ui2.dart';
+import '../../common/ui.dart';
 import 'parents/media_model.dart';
 
 class ExpiringContract extends MediaModel {
