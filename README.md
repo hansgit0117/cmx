@@ -2,9 +2,9 @@
 
 ## Table of contents
 * [General Info](##General-Info)
-* [Setup and Run](##Setup-and-Run)
-* [Releasing](##Releasing)
-
+* [Setup and Run](#Setup-and-Run)
+* [Releasing](#Releasing)
+Cancel changes
 ## General Info
   This is the mobile app version of CMx (https://www.contractexperience.com) - one of the most popular and easy to use contract management software in the world.
   
