@@ -34,28 +34,9 @@ class AuthService extends GetxService {
       _box.write('current_address', _address);
     });
 
-    await getAddress();
+    // await getAddress();
 
     return this;
-  }
-
-  Future getAddress() async {
-    try {
-      if (_box.hasData('current_address')) {
-        address.value = Address.fromJson(await _box.read('current_address'));
-      } else {
-        List<Address> _addresses = await _usersRepo.getAddresses();
-        if (_addresses.isNotEmpty) {
-          address.value = _addresses.firstWhere((_address) => _address.isDefault, orElse: () {
-            return _addresses.first;
-          });
-        } else {
-          address.value = new Address(address: "Please choose your address".tr);
-        }
-      }
-    } catch (e) {
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
-    }
   }
 
   bool get isAuth => user.value.auth ?? false;

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../../../common/ui.dart';
 import '../../../models/address_model.dart';
 import '../../../models/expiring_contract_model.dart';
-import '../../../models/e_service_model.dart';
 import '../../../models/slide_model.dart';
 import '../../../repositories/expiring_contract_repository.dart';
 import '../../../repositories/slider_repository.dart';
@@ -16,7 +15,6 @@ class HomeController extends GetxController {
   final slider = <Slide>[].obs;
   final currentSlide = 0.obs;
 
-  final eServices = <EService>[].obs;
   final expiringContracts = <ExpiringContract>[].obs;
   final featured = <ExpiringContract>[].obs;
 

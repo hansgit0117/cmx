@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages2.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class ExpiringContractWidget extends GetWidget<HomeController> {
