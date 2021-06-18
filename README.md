@@ -2,7 +2,7 @@
 
 ## Table of contents
 * [General Info](##General-Info)
-* [Setup](##Setup)
+* [Setup and Run](##Setup-and-Run)
 * [Run](##Run)
 
 ## General Info
@@ -10,7 +10,7 @@
   
   <img src='https://github.com/sysintellects/cmx-mobile/blob/master/assets/img/Preview.png' width='250'>
   
-## Setup 
+## Setup and Run
 1. Windows
   - Follow this link to setup the environment in Windows: https://flutter.dev/docs/get-started/install/windows
   - Install the Editor (VS Code): https://flutter.dev/docs/get-started/editor?tab=vscode
