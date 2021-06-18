@@ -147,7 +147,7 @@ class LoginView extends GetView<AuthController> {
             ),
             TextFieldWidget(
               labelText: "Domain Name".tr,
-              hintText: "www.contractexperience.com".tr,
+              hintText: "contractexperience".tr,
               iconData: Icons.domain,
             ),
             TextFieldWidget(
