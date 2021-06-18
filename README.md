@@ -16,4 +16,8 @@
   - Install the Editor (VS Code): https://flutter.dev/docs/get-started/editor?tab=vscode
   - Open this project with VS Code. Make sure that the Flutter VS Code plugin has been already installed. 
   - Run the project simply pressing ***F5***. If have question follow this link: https://flutter.dev/docs/get-started/test-drive?tab=vscode
-2. iOS
+2. macOS
+  - Follow this link to setup the environment in macOS: https://flutter.dev/docs/get-started/install/macos
+  - Make sure that you have already installed the Xcode
+  - Run the iOS emulator using `open -a Simulator`
+  - Run the project using `flutter run`
