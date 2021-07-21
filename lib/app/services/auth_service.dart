@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -20,19 +22,19 @@ class AuthService extends GetxService {
 
   Future<AuthService> init() async {
     // TODO Complete version
-    // if (user.value.auth == null && _box.hasData('current_user')) {
-    //   user.value = User.fromJson(json.decode(await _box.read('current_user')));
-    //   user.value.auth = true;
-    // } else {
-    //   user.value.auth = false;
-    // }
+    if (user.value.auth == null && _box.hasData('current_user')) {
+      user.value = User.fromJson(json.decode(await _box.read('current_user')));
+      user.value.auth = true;
+    } else {
+      user.value.auth = false;
+    }
 
-    user.value = await _usersRepo.login();
-    user.value.auth = true;
+    // user.value = await _usersRepo.login();
+    // user.value.auth = true;
 
-    address.listen((Address _address) {
-      _box.write('current_address', _address);
-    });
+    // address.listen((Address _address) {
+    //   _box.write('current_address', _address);
+    // });
 
     // await getAddress();
 

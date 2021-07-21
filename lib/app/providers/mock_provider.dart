@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:get/get.dart';
+import '../models/oauth20models/authenticate_model.dart';
 import 'package:meta/meta.dart';
 
 import '../models/setting_model.dart';
@@ -12,7 +13,7 @@ import '../../common/helper.dart';
 
 class MockApiClient {
   final _globalService = Get.find<GlobalService>();
-
+Authenticate authenticate = new Authenticate();
   String get baseUrl => _globalService.global.value.mockBaseUrl;
 
   final Dio httpClient;

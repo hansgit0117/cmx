@@ -54,6 +54,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  # Flutter Overlay Spinner  
+  loader_overlay: ^2.0.2
 
 #dependency_overrides:
 #  path_provider: 2.0.1

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../common/ui.dart';
 import '../../../global_widgets/block_button_widget.dart';
@@ -15,17 +16,20 @@ class LoginView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Login".tr,
-            style: Get.textTheme.headline6.merge(TextStyle(color: context.theme.primaryColor)),
-          ),
-          centerTitle: true,
-          backgroundColor: Get.theme.accentColor, 
-          automaticallyImplyLeading: false,
-          elevation: 0,
+      appBar: AppBar(
+        title: Text(
+          "Login".tr,
+          style: Get.textTheme.headline6.merge(TextStyle(color: context.theme.primaryColor)),
         ),
-        body: ListView(
+        centerTitle: true,
+        backgroundColor: Get.theme.accentColor, 
+        automaticallyImplyLeading: false,
+        elevation: 0,
+      ),
+      body: LoaderOverlay(
+        overlayColor: Colors.blue,
+        overlayOpacity: 0.2,
+        child: ListView(
           primary: true,
           children: [
             Stack(
@@ -145,32 +149,66 @@ class LoginView extends GetView<AuthController> {
                 ],
               ).marginSymmetric(vertical: 3, horizontal: 20),
             ),
-            TextFieldWidget(
-              labelText: "Domain Name".tr,
-              hintText: "contractexperience".tr,
-              iconData: Icons.domain,
+            Form(
+              key: controller.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFieldWidget(
+                    labelText: "Domain Name".tr,
+                    hintText: "contractexperience".tr,
+                    onSaved: (input) => controller.authenticate.domainName = input,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter domain name';
+                      }
+                      return null;
+                    },
+                    iconData: Icons.domain,
+                  ),
+                  TextFieldWidget(
+                    labelText: "Email Address".tr,
+                    hintText: "johndoe@gmail.com".tr,
+                    onSaved: (input) => controller.authenticate.email = input,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter email';
+                      } else {
+                        if (!value.contains('@')) {
+                          return 'Please enter valid email';
+                        }
+                      }
+                      return null;
+                    },                    
+                    iconData: Icons.alternate_email,              
+                  ),
+                  Obx(() {
+                    return TextFieldWidget(
+                      labelText: "Password".tr,
+                      hintText: "••••••••••••".tr,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter password';
+                        } 
+                        return null;
+                      },
+                      onSaved: (input) =>  controller.authenticate.password = input,
+                      obscureText: controller.hidePassword.value,
+                      iconData: Icons.lock_outline,
+                      keyboardType: TextInputType.visiblePassword,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          controller.hidePassword.value = !controller.hidePassword.value;
+                        },
+                        color: Theme.of(context).focusColor,
+                        icon: Icon(controller.hidePassword.value ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                      ),
+                    );
+                  }),
+                ],
+              )
             ),
-            TextFieldWidget(
-              labelText: "Email Address".tr,
-              hintText: "johndoe@gmail.com".tr,
-              iconData: Icons.alternate_email,              
-            ),
-            Obx(() {
-              return TextFieldWidget(
-                labelText: "Password".tr,
-                hintText: "••••••••••••".tr,
-                obscureText: controller.hidePassword.value,
-                iconData: Icons.lock_outline,
-                keyboardType: TextInputType.visiblePassword,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    controller.hidePassword.value = !controller.hidePassword.value;
-                  },
-                  color: Theme.of(context).focusColor,
-                  icon: Icon(controller.hidePassword.value ? Icons.visibility_outlined : Icons.visibility_off_outlined),
-                ),
-              );
-            }),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -186,8 +224,15 @@ class LoginView extends GetView<AuthController> {
               ],
             ).paddingSymmetric(horizontal: 20),
             BlockButtonWidget(
-              onPressed: () {
-                Get.offAllNamed(Routes.ROOT);
+              onPressed: () async { 
+                context.loaderOverlay.show();
+                controller.isLoading.value = !controller.isLoading.value;
+                await Future.delayed(Duration(seconds: 2));
+                await controller.login();
+                if (controller.isLoading.value) {
+                  context.loaderOverlay.hide();
+                }
+                controller.isLoading.value = context.loaderOverlay.visible;
               },
               color: Get.theme.accentColor,
               text: Text(
@@ -197,6 +242,8 @@ class LoginView extends GetView<AuthController> {
             ).paddingSymmetric(horizontal: 20),
             SizedBox(height: 10),            
           ],
-        ));
+        )
+      ),
+    );
   }
 }
