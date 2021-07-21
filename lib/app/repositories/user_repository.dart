@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
+import '../models/oauth20models/authenticate_model.dart';
 
 import '../models/user_model.dart';
 import '../providers/mock_provider.dart';
 
 class UserRepository {
   MockApiClient _apiClient;
-
+  
   UserRepository() {
     this._apiClient = MockApiClient(httpClient: Dio());
   }
