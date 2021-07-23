@@ -1,11 +1,13 @@
 import '../parents/media_model.dart';  
 
-class Authenticate extends MediaModel {
+class Authenticate {
   String domainName;
   String email;
   String password;
-  String clientId = "fds";
-  String redirectUri = "fdsfsd";
+  String clientId = "7dc53df5-703e-49b3-8670-b1c468f47f1f";
+  String clientSecret = "BhUDJq";
+  String redirectUri = "https://test.contractexperience.com/CMx_API/2.0/oauth2/redirect";
+  String authorizationCode;
 
   Authenticate();
 
@@ -15,7 +17,7 @@ class Authenticate extends MediaModel {
     redirectUri = json['redirectUri'];
     email = json['email'];
     password = json['password'];
-    super.fromJson(json);
+    // super.fromJson(json);
   }
 
   Map<String, dynamic> toJson() {
@@ -25,9 +27,9 @@ class Authenticate extends MediaModel {
     data['redirectUri'] = this.redirectUri;
     data['email'] = this.email;
     data['password'] = this.password;
-    if (this.media != null) {
-      data['media'] = this.media.toJson();
-    }
+    // if (this.media != null) {
+    //   data['media'] = this.media.toJson();
+    // }
     return data;
   }
 }

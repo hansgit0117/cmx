@@ -10,27 +10,29 @@ class AuthController extends GetxController {
   final isLoading = false.obs;
   
   final formKey = GlobalKey<FormState>();
-
   UserRepository usersRepo = new UserRepository();
-  
   Authenticate authenticate = new Authenticate();
   final user = new User().obs;
 
   void login() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      await authenticateUser();
-
-      // await issueToken();
+      await authenticateUser(authenticate);
+      await Future.delayed(Duration(seconds: 2));
+      await issueToken(authenticate);
       Get.offAllNamed(Routes.ROOT);
     }
   }
 
-  void authenticateUser() async {
-    user.value = await usersRepo.login();
+  void authenticateUser(Authenticate authenticate) async {
+    // user.value = await usersRepo.login(authenticate);
+    authenticate.authorizationCode = "123123";
   }
 
-  // void issueToken() async {
-  //   await _usersRepo.issueToken(tokenRequest));
-  // }
+  void issueToken(Authenticate authenticate) async {
+    print(authenticate.authorizationCode);
+    print(authenticate.clientId);
+    print(authenticate.email);
+    // await usersRepo.issueToken(authenticate);
+  }
 }

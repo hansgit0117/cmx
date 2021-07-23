@@ -14,7 +14,18 @@ class User extends MediaModel {
 
   bool auth;
 
-  User({this.name, this.email, this.password, this.apiToken, this.deviceToken, this.phone, this.verifiedPhone, this.verificationId, this.address, this.bio});
+  User({
+    this.name, 
+    this.email, 
+    this.password, 
+    this.apiToken, 
+    this.deviceToken, 
+    this.phone, 
+    this.verifiedPhone, 
+    this.verificationId, 
+    this.address, 
+    this.bio, 
+    });
 
   User.fromJson(Map<String, dynamic> json) {
     name = json['name'];

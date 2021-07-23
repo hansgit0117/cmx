@@ -15,7 +15,11 @@ class UserRepository {
     return _apiClient.getAllUsers();
   }
 
-  Future<User> login() {
-    return _apiClient.getLogin();
+  Future<User> login(Authenticate authenticate) {
+    return _apiClient.getLogin(authenticate);
+  }
+
+  Future<User> issueToken(Authenticate authenticate) {
+    return _apiClient.issueToken(authenticate);
   }
 }

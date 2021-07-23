@@ -227,8 +227,8 @@ class LoginView extends GetView<AuthController> {
               onPressed: () async { 
                 context.loaderOverlay.show();
                 controller.isLoading.value = !controller.isLoading.value;
-                await Future.delayed(Duration(seconds: 2));
                 await controller.login();
+                // await Future.delayed(Duration(seconds: 2));
                 if (controller.isLoading.value) {
                   context.loaderOverlay.hide();
                 }
