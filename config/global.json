@@ -1,3 +1,4 @@
 {
-  "mock_base_url" : "http://handyman.smartersvision.com/mock/"
+  "mock_base_url" : "http://handyman.smartersvision.com/mock/",
+  "api_base_url" : "https://live.contractexperience.com/CMx_API/2.0/"
 }

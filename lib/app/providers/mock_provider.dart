@@ -4,9 +4,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:get/get.dart';
-import '../models/oauth20models/authenticate_model.dart';
 import 'package:meta/meta.dart';
 
+import '../models/oauth20models/authenticate_model.dart';
 import '../models/setting_model.dart';
 import '../models/slide_model.dart';
 import '../models/expiring_contract_model.dart';
@@ -17,6 +17,7 @@ import '../../common/helper.dart';
 class MockApiClient {
   final _globalService = Get.find<GlobalService>();
   String get baseUrl => _globalService.global.value.mockBaseUrl;
+  String get apiBaseUrl => _globalService.global.value.apiBaseUrl;
 
   final Dio httpClient;
   final Options _options = buildCacheOptions(Duration(days: 3), forceRefresh: true);
@@ -42,24 +43,54 @@ class MockApiClient {
       "clientId": authenticate.clientId,
       "redirectUri": authenticate.redirectUri,
     }; 
-    var response = await httpClient.post('https://api.contractexperience.com/CMx_API/Common/userDetails/1.0/authenticateUser',
-      options: Options(headers: {
-        HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.acceptHeader: "application/json",
-      }),
+    var response = await httpClient.post(apiBaseUrl + 'oauth2/authenticateUser',
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status <= 500;
+        },
+        headers: {
+          HttpHeaders.acceptHeader: "application/json",          
+          HttpHeaders.contentTypeHeader: "application/json",
+          }
+        ),
       data: jsonEncode(params),
     );
+    print(response.statusCode);
     if (response.statusCode == 200) {
-      return User.fromJson(response.data['data']);
+      response.data['xAuthToken'] = response.headers['x-auth-token'].first;
+      return User.fromJson(response.data);
     } else {
       throw new Exception(response.statusMessage);
     }
   }
 
   Future<User> issueToken(Authenticate authenticate) async {
-    print(authenticate);
-    var response = await Helper.getJsonFile('config/expiring_contract.json');
-    return User.fromJson(response.data['data']);
+    var params = {
+      "clientId": authenticate.clientId,
+      "clientSecret": authenticate.clientSecret,
+      "authorizationCode": authenticate.authorizationCode,
+    };
+    var response = await httpClient.post(apiBaseUrl + 'oauth2/token',
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status <= 500;
+        },        
+        headers: {
+          HttpHeaders.acceptHeader: "application/json",
+          HttpHeaders.contentTypeHeader: "application/json",
+          "X-AUTH-TOKEN": authenticate.xAuthToken,
+          "X-CSRF-TOKEN": authenticate.xCsrfToken,
+        }
+      ),
+      data: jsonEncode(params),
+    );
+    if(response.statusCode == 200) {
+      return User.fromJson(response.data);
+    } else {
+      throw new Exception(response.statusMessage);
+    }
   }
 
   Future<List<Slide>> getHomeSlider() async {

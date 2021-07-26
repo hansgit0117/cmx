@@ -6,8 +6,10 @@ class Authenticate {
   String password;
   String clientId = "7dc53df5-703e-49b3-8670-b1c468f47f1f";
   String clientSecret = "BhUDJq";
-  String redirectUri = "https://test.contractexperience.com/CMx_API/2.0/oauth2/redirect";
+  String xCsrfToken = "740ac150-9eca-4c2e-a728-9016beca909b";
+  String redirectUri = "https://live.contractexperience.com/CMx_API/2.0/oauth2/redirect";
   String authorizationCode;
+  String xAuthToken;
 
   Authenticate();
 

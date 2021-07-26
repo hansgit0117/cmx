@@ -23,7 +23,7 @@ class WelcomeWidget extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text("Welcome,".tr, style: Get.textTheme.bodyText1),
-                Text(Get.find<AuthService>().user.value.name, style: Get.textTheme.bodyText1.merge(TextStyle(color: Get.theme.primaryColor))),
+                Text(Get.find<AuthService>().user.value.firstName, style: Get.textTheme.bodyText1.merge(TextStyle(color: Get.theme.primaryColor))),
                 Text('!', style: Get.textTheme.bodyText1.merge(TextStyle(color: Get.theme.primaryColor)))
               ],
             ),
