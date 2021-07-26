@@ -1,16 +1,18 @@
 /*
- * Copyright (c) 2020 .
+ * Written By Honesty (c) 2021 .
  */
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../modules/auth/controllers/auth_controller.dart';
 import '../modules/root/controllers/root_controller.dart' show RootController;
 import '../routes/app_pages.dart';
 import '../services/settings_service.dart';
 import 'drawer_link_widget.dart';
 
 class MainDrawerWidget extends StatelessWidget {
+  final AuthController authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -175,7 +177,7 @@ class MainDrawerWidget extends StatelessWidget {
             icon: Icons.logout,
             text: "Logout",
             onTap: (e) {
-              Get.offAllNamed(Routes.LOGIN);
+              authController.logout(context);
             },
           ),
           if (Get.find<SettingsService>().setting.value.enableVersion)

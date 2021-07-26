@@ -189,7 +189,7 @@ class LoginView extends GetView<AuthController> {
                     return TextFieldWidget(
                       enabled: controller.enabled.value,
                       labelText: "Domain Name".tr,
-                      hintText: "contractexperience".tr,
+                      hintText: "live".tr,
                       onSaved: (input) => controller.authenticate.domainName = input.trim(),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
