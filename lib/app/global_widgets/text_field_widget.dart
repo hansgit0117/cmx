@@ -20,6 +20,7 @@ class TextFieldWidget extends StatelessWidget {
     this.labelText,
     this.obscureText,
     this.suffixIcon,
+    this.enabled,
     this.isFirst,
     this.isLast,
     this.style,
@@ -35,6 +36,7 @@ class TextFieldWidget extends StatelessWidget {
   final String labelText;
   final TextStyle style;
   final IconData iconData;
+  final bool enabled;
   final bool obscureText;
   final bool isFirst;
   final bool isLast;
@@ -69,6 +71,7 @@ class TextFieldWidget extends StatelessWidget {
             style: style ?? Get.textTheme.bodyText2,
             obscureText: obscureText ?? false,
             textAlign: textAlign ?? TextAlign.start,
+            enabled: enabled,
             decoration: Ui.getInputDecoration(
               hintText: hintText ?? '',
               iconData: iconData,

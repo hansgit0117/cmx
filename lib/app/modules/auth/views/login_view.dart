@@ -89,8 +89,14 @@ class LoginView extends GetView<AuthController> {
                   Expanded(      
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
-                      onTap: () {
-                        Get.offAllNamed(Routes.ROOT);
+                      onTap: () async {
+                        context.loaderOverlay.show();
+                        controller.isLoading.value = !controller.isLoading.value;
+                        await controller.loginWithGoogle();
+                        if (controller.isLoading.value) {
+                          context.loaderOverlay.hide();
+                        }
+                        controller.isLoading.value = context.loaderOverlay.visible;
                       },
                       child: Image.asset(
                         'assets/icon/gsuite.png',
@@ -101,8 +107,14 @@ class LoginView extends GetView<AuthController> {
                   Expanded(      
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
-                      onTap: () {
-                        Get.offAllNamed(Routes.ROOT);
+                      onTap: () async {
+                        context.loaderOverlay.show();
+                        controller.isLoading.value = !controller.isLoading.value;
+                        await controller.loginWithSalesforce();
+                        if (controller.isLoading.value) {
+                          context.loaderOverlay.hide();
+                        }
+                        controller.isLoading.value = context.loaderOverlay.visible;
                       },
                       child: Image.asset(
                         'assets/icon/salesforce.png',
@@ -113,8 +125,14 @@ class LoginView extends GetView<AuthController> {
                   Expanded(      
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
-                      onTap: () {
-                        Get.offAllNamed(Routes.ROOT);
+                      onTap: () async {
+                        context.loaderOverlay.show();
+                        controller.isLoading.value = !controller.isLoading.value;
+                        await controller.loginWithAzure();
+                        if (controller.isLoading.value) {
+                          context.loaderOverlay.hide();
+                        }
+                        controller.isLoading.value = context.loaderOverlay.visible;
                       },
                       child: Image.asset(
                         'assets/icon/azure.png',
@@ -125,8 +143,14 @@ class LoginView extends GetView<AuthController> {
                   Expanded(      
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
-                      onTap: () {
-                        Get.offAllNamed(Routes.ROOT);
+                      onTap: () async {
+                        context.loaderOverlay.show();
+                        controller.isLoading.value = !controller.isLoading.value;
+                        await controller.loginWithOnelogin();
+                        if (controller.isLoading.value) {
+                          context.loaderOverlay.hide();
+                        }
+                        controller.isLoading.value = context.loaderOverlay.visible;
                       },
                       child: Image.asset(
                         'assets/icon/onelogin.png',
@@ -137,8 +161,14 @@ class LoginView extends GetView<AuthController> {
                   Expanded(      
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
-                      onTap: () {
-                        Get.offAllNamed(Routes.ROOT);
+                      onTap: () async {
+                        context.loaderOverlay.show();
+                        controller.isLoading.value = !controller.isLoading.value;
+                        await controller.loginWithOkta();
+                        if (controller.isLoading.value) {
+                          context.loaderOverlay.hide();
+                        }
+                        controller.isLoading.value = context.loaderOverlay.visible;
                       },
                       child: Image.asset(
                         'assets/icon/okta.png',
@@ -155,45 +185,55 @@ class LoginView extends GetView<AuthController> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextFieldWidget(
-                    labelText: "Domain Name".tr,
-                    hintText: "contractexperience".tr,
-                    onSaved: (input) => controller.authenticate.domainName = input,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter domain name';
-                      }
-                      return null;
-                    },
-                    iconData: Icons.domain,
-                  ),
-                  TextFieldWidget(
-                    labelText: "Email Address".tr,
-                    hintText: "johndoe@gmail.com".tr,
-                    onSaved: (input) => controller.authenticate.email = input,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter email';
-                      } else {
-                        if (!value.contains('@')) {
-                          return 'Please enter valid email';
-                        }
-                      }
-                      return null;
-                    },                    
-                    iconData: Icons.alternate_email,              
-                  ),
                   Obx(() {
                     return TextFieldWidget(
+                      enabled: controller.enabled.value,
+                      labelText: "Domain Name".tr,
+                      hintText: "contractexperience".tr,
+                      onSaved: (input) => controller.authenticate.domainName = input.trim(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter domain name";
+                        }
+                        return null;
+                      },
+                      iconData: Icons.domain,
+                    );
+                  }),
+                  Obx(() {
+                    return TextFieldWidget(
+                      enabled: controller.enabled.value,
+                      labelText: "Email Address".tr,
+                      hintText: "johndoe@gmail.com".tr,
+                      onSaved: (input) => controller.authenticate.email = input.trim(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter email";
+                        } else {
+                          if (!value.contains('@')) {
+                            return "Please enter valid email";
+                          }
+                        }
+                        return null;
+                      },                    
+                      iconData: Icons.alternate_email,              
+                    );
+                  }),
+                  Obx(() {
+                    return TextFieldWidget(
+                      enabled: controller.enabled.value,
                       labelText: "Password".tr,
                       hintText: "••••••••••••".tr,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter password';
-                        } 
+                          return "Please enter password";
+                        } else {
+                          if (value.length < 5)
+                            return "Password should be more than 5 letters";
+                        }
                         return null;
                       },
-                      onSaved: (input) =>  controller.authenticate.password = input,
+                      onSaved: (input) =>  controller.authenticate.password = input.trim(),
                       obscureText: controller.hidePassword.value,
                       iconData: Icons.lock_outline,
                       keyboardType: TextInputType.visiblePassword,
@@ -227,11 +267,12 @@ class LoginView extends GetView<AuthController> {
               onPressed: () async { 
                 context.loaderOverlay.show();
                 controller.isLoading.value = !controller.isLoading.value;
+                controller.enabled.value = !controller.enabled.value;
                 await controller.login();
-                // await Future.delayed(Duration(seconds: 2));
                 if (controller.isLoading.value) {
                   context.loaderOverlay.hide();
                 }
+                controller.enabled.value = !controller.enabled.value;
                 controller.isLoading.value = context.loaderOverlay.visible;
               },
               color: Get.theme.accentColor,

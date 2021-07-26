@@ -13,4 +13,5 @@ class GlobalService extends GetxService {
   }
 
   String get baseUrl => global.value.mockBaseUrl;
+  String get apiBaseUrl => global.value.apiBaseUrl;
 }
