@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../global_widgets/home_search_bar_widget.dart';
 import '../../../global_widgets/notifications_button_widget.dart';
 import '../../../models/slide_model.dart';
@@ -10,6 +11,7 @@ import '../controllers/home_controller.dart';
 import '../widgets/address_widget.dart';
 import '../widgets/expiring_contract_widget.dart';
 import '../widgets/slide_item_widget.dart';
+import '../widgets/tasks_widget.dart';
 
 class HomeView extends GetView<HomeController> {
   @override
@@ -93,11 +95,11 @@ class HomeView extends GetView<HomeController> {
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(
                         children: [
-                          Expanded(child: Text("Expiring Contracts".tr, style: Get.textTheme.headline5)),
+                          Expanded(child: Text("Expiring Contracts (" + controller.expiringContracts.length.toString() + ")".tr, style: Get.textTheme.headline5)),
                           MaterialButton(
                             elevation: 0,
                             onPressed: () {
-                              
+                              Get.toNamed(Routes.EXPIRING_CONTRACTS);
                             },
                             shape: StadiumBorder(),
                             color: Get.theme.accentColor.withOpacity(0.1),
@@ -112,10 +114,12 @@ class HomeView extends GetView<HomeController> {
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(
                         children: [
-                          Expanded(child: Text("Contract Analytics".tr, style: Get.textTheme.headline5)),
+                          Expanded(child: Text("Tasks (" + controller.tasks.length.toString() + ")".tr, style: Get.textTheme.headline5)),
                           MaterialButton(
                             elevation: 0,
-                            onPressed: () {},
+                            onPressed: () {
+                               Get.toNamed(Routes.TASKS);
+                            },
                             shape: StadiumBorder(),
                             color: Get.theme.accentColor.withOpacity(0.1),
                             child: Text("View All".tr, style: Get.textTheme.subtitle1),
@@ -123,6 +127,7 @@ class HomeView extends GetView<HomeController> {
                         ],
                       ),
                     ),
+                    TasksWidget(),
                   ],
                 ),
               ),

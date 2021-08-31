@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../models/oauth20models/authenticate_model.dart';
 
-import '../../common/ui.dart';
 import '../models/address_model.dart';
 import '../models/user_model.dart';
 import '../repositories/user_repository.dart';
@@ -11,6 +11,8 @@ import '../repositories/user_repository.dart';
 class AuthService extends GetxService {
   final user = User().obs;
   final address = Address().obs;
+  final authenticate = Authenticate().obs;
+  
   GetStorage _box;
 
   UserRepository _usersRepo;

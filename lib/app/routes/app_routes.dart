@@ -7,4 +7,10 @@ abstract class Routes {
 
   // Initial routes
   static const ROOT = '/root';
+
+  // Contracts routes
+  static const EXPIRING_CONTRACTS = '/expiring_contracts';
+
+  // Tasks routes
+  static const TASKS = '/tasks';
 }

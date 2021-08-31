@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
-class ExpiringContractWidget extends GetWidget<HomeController> {
+class TasksWidget extends GetWidget<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,12 +17,12 @@ class ExpiringContractWidget extends GetWidget<HomeController> {
             primary: false,
             shrinkWrap: false,
             scrollDirection: Axis.horizontal,
-            itemCount: controller.expiringContracts.length,
+            itemCount: controller.tasks.length,
             itemBuilder: (_, index) {
-              var _expiringContracts = controller.expiringContracts.elementAt(index);
+              var task = controller.tasks.elementAt(index);
               return InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.ROOT, arguments: _expiringContracts);
+                  Get.toNamed(Routes.ROOT, arguments: task);
                 },
                 child: Container(
                   width: 100,
@@ -31,7 +31,7 @@ class ExpiringContractWidget extends GetWidget<HomeController> {
                   padding: EdgeInsets.symmetric(vertical: 10),
                   decoration: new BoxDecoration(
                     gradient: new LinearGradient(
-                        colors: [_expiringContracts.color.withOpacity(1), _expiringContracts.color.withOpacity(0.5)],
+                        colors: [task.color.withOpacity(1), task.color.withOpacity(0.5)],
                         begin: AlignmentDirectional.topStart,
                         //const FractionalOffset(1, 0),
                         end: AlignmentDirectional.bottomEnd,
@@ -49,26 +49,26 @@ class ExpiringContractWidget extends GetWidget<HomeController> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.only(start: 30, top: 30),
+                        padding: EdgeInsetsDirectional.only(start: 44, top: 44),
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          child: (_expiringContracts.iconUrl.toLowerCase().endsWith('.svg')
+                          child: (task.iconUrl.toLowerCase().endsWith('.svg')
                               ? SvgPicture.network(
-                                  _expiringContracts.iconUrl,
-                                  color: _expiringContracts.color,
+                                  task.iconUrl,
+                                  color: task.color,
                                 )
                               : Image.asset(
-                                  _expiringContracts.iconUrl,
+                                  task.iconUrl,
                                   fit: BoxFit.cover,
-                                  color: _expiringContracts.color,
-                                )).marginSymmetric(vertical: 16, horizontal: 0)
+                                  color: task.color,
+                                )).marginSymmetric(vertical: 10, horizontal: 0)
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsetsDirectional.only(start: 10, top: 10),
                         child: Text(
-                          _expiringContracts.contractTitle ?? '',
-                          maxLines: 2,
+                          task.contract.contractTitle ?? '',
+                          maxLines: 3,
                           style: Get.textTheme.bodyText2.merge(TextStyle(color: Get.theme.primaryColor)),
                         ),
                       ),
