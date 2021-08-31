@@ -2,6 +2,7 @@ import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../../services/auth_service.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../../../common/ui.dart';
 import '../../../routes/app_pages.dart';
@@ -65,16 +66,16 @@ class AuthController extends GetxController {
   }
 
   void loginWithAzure() async {
-    try {
-      await oauth.login();
-      var accessToken = await oauth.getAccessToken();
-      authType = "azure";
-      print('Logged in successfully, your access token: $accessToken');
-    } catch (e) {
-      print(e);
-      Get.showSnackbar(Ui.ErrorSnackBar(message: "Incorrect credentials. Please try again.".tr));
-    }
-    // await Future.delayed(Duration(milliseconds: 2000));
+    // try {
+    //   await oauth.login();
+    //   var accessToken = await oauth.getAccessToken();
+    //   authType = "azure";
+    //   print('Logged in successfully, your access token: $accessToken');
+    // } catch (e) {
+    //   print(e);
+    //   Get.showSnackbar(Ui.ErrorSnackBar(message: "Incorrect credentials. Please try again.".tr));
+    // }
+    await Future.delayed(Duration(milliseconds: 2000));
   }
 
   void loginWithOnelogin() async {
@@ -144,11 +145,13 @@ class AuthController extends GetxController {
    */
   void authenticateUser(Authenticate authenticate) async {
     user.value = await usersRepo.login(authenticate);
+    Get.log(user.value.authorizationCode);
     authenticate.authorizationCode = user.value.authorizationCode;
-    authenticate.xAuthToken = user.value.xAuthToken;
   }
 
   void issueToken(Authenticate authenticate) async {
-    user.value = await usersRepo.issueToken(authenticate);
+    User user = await usersRepo.issueToken(authenticate);
+    authenticate.xAuthToken = user.xAuthToken;
+    Get.find<AuthService>().authenticate.value = authenticate;
   }
 }

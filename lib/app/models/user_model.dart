@@ -23,7 +23,6 @@ class User extends MediaModel {
   String userGroups;
   String userType;
   String xAuthToken;
-  String accessToken;
   String refreshToken;
   String tokenType;
 
@@ -49,11 +48,10 @@ class User extends MediaModel {
     authorizationCode = json['authorizationCode']?? null;
     auth = json['isAuthenticated']?? null;
     redirectUri = json['redirectUri']?? null;
-    accessToken = json['accessToken']?? null;
     refreshToken = json['refreshToken']?? null;
     tokenType = json['tokenType']?? null;
     expiresIn = json['expiresIn']?? null;
-    xAuthToken = json['xAuthToken']?? null;
+    xAuthToken = json['accessToken']?? null;
 
     if (json['user'] != null) {
       alternateContactPhone = json['user']['alternateContactPhone']?? null;
@@ -123,7 +121,6 @@ class User extends MediaModel {
     data['isMFAEnabled'] = this.isMFAEnabled;
     data['notificationsState'] = this.notificationsState;
     data['xAuthToken'] = this.xAuthToken;
-    data['accessToken'] = this.accessToken;
     data['refreshToken'] = this.refreshToken;
     data['expiresIn'] = this.expiresIn;
 

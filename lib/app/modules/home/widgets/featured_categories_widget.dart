@@ -17,7 +17,7 @@ class FeaturedCategoriesWidget extends GetWidget<HomeController> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Row(
                   children: [
-                    Expanded(child: Text(_category.name, style: Get.textTheme.headline5)),
+                    Expanded(child: Text(_category.contractTitle ?? '', style: Get.textTheme.headline5)),
                     MaterialButton(
                       elevation: 0,
                       onPressed: () {},

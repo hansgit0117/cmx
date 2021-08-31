@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import '../../../services/auth_service.dart';
+import '../../../models/task_model.dart';
+import '../../../repositories/tasks_repository.dart';
+import '../../../models/oauth20models/authenticate_model.dart';
 
 import '../../../../common/ui.dart';
 import '../../../models/address_model.dart';
@@ -10,28 +14,33 @@ import '../../../repositories/slider_repository.dart';
 class HomeController extends GetxController {
   SliderRepository _sliderRepo;
   ExpiringContractRepository _expiringContractRepository;
+  TasksRepository _tasksRepository;
+  Authenticate authenticate;
 
   final addresses = <Address>[].obs;
   final slider = <Slide>[].obs;
   final currentSlide = 0.obs;
-
   final expiringContracts = <ExpiringContract>[].obs;
   final featured = <ExpiringContract>[].obs;
+  final tasks = <Task>[].obs;
 
   HomeController() {
     _sliderRepo = new SliderRepository();
     _expiringContractRepository = new ExpiringContractRepository();
+    _tasksRepository = new TasksRepository();
   }
 
   @override
   Future<void> onInit() async {
+    authenticate = await Get.find<AuthService>().authenticate.value;
     await refreshHome();
     super.onInit();
   }
 
   Future refreshHome({bool showMessage = false}) async {
     await getSlider();
-    await getExpiringContracts();
+    await getExpiringContracts(authenticate);
+    await getTasks(authenticate);
     if (showMessage) {
       Get.showSnackbar(Ui.SuccessSnackBar(message: "Home page refreshed successfully".tr));
     }
@@ -45,9 +54,17 @@ class HomeController extends GetxController {
     }
   }
 
-  Future getExpiringContracts() async {
+  Future getExpiringContracts(Authenticate authenticate) async {
     try {
-      expiringContracts.value = await _expiringContractRepository.getAll();
+      expiringContracts.value = await _expiringContractRepository.getAll(authenticate);
+    } catch (e) {
+      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+    }
+  }
+
+  Future getTasks(Authenticate authenticate) async {
+    try {
+      tasks.value = await _tasksRepository.getAll(authenticate);
     } catch (e) {
       Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
     }

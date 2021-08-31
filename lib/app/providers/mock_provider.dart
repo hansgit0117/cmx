@@ -10,6 +10,7 @@ import '../models/oauth20models/authenticate_model.dart';
 import '../models/setting_model.dart';
 import '../models/slide_model.dart';
 import '../models/expiring_contract_model.dart';
+import '../models/task_model.dart';
 import '../models/user_model.dart';
 import '../services/global_service.dart';
 import '../../common/helper.dart';
@@ -56,9 +57,7 @@ class MockApiClient {
         ),
       data: jsonEncode(params),
     );
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      response.data['xAuthToken'] = response.headers['x-auth-token'].first;
+    if (response.statusCode == 200) {      
       return User.fromJson(response.data);
     } else {
       throw new Exception(response.statusMessage);
@@ -67,6 +66,7 @@ class MockApiClient {
 
   Future<User> issueToken(Authenticate authenticate) async {
     var params = {
+      "domainName": authenticate.domainName,
       "clientId": authenticate.clientId,
       "clientSecret": authenticate.clientSecret,
       "authorizationCode": authenticate.authorizationCode,
@@ -80,8 +80,6 @@ class MockApiClient {
         headers: {
           HttpHeaders.acceptHeader: "application/json",
           HttpHeaders.contentTypeHeader: "application/json",
-          "X-AUTH-TOKEN": authenticate.xAuthToken,
-          "X-CSRF-TOKEN": authenticate.xCsrfToken,
         }
       ),
       data: jsonEncode(params),
@@ -104,9 +102,59 @@ class MockApiClient {
     return response['results'].map<Slide>((obj) => Slide.fromJson(obj)).toList();
   }
 
-  Future<List<ExpiringContract>> getAllExpiringContracts() async {
-    var response = await Helper.getJsonFile('config/expiring_contract.json');
-    return response['results'].map<ExpiringContract>((obj) => ExpiringContract.fromJson(obj)).toList();
+  Future<List<ExpiringContract>> getAllExpiringContracts(Authenticate authenticate) async {
+    var params = {
+      "expiringInDays": 120
+    };
+    var response = await httpClient.post(apiBaseUrl + 'contract/2.0/getContractsByDate',
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status <= 500;
+        },        
+        headers: {
+          HttpHeaders.acceptHeader: "application/json",
+          HttpHeaders.contentTypeHeader: "application/json",
+          "X-AUTH-TOKEN": authenticate.xAuthToken,
+          "X-CSRF-TOKEN": authenticate.xCsrfToken,
+        }
+      ), 
+      data: jsonEncode(params),
+    );
+    if (response.statusCode == 200) {
+      return response.data.map<ExpiringContract>((obj) => ExpiringContract.fromJson(obj)).toList();
+    } else {
+      throw new Exception(response.statusMessage);
+    }
+  }
+
+  Future<List<Task>> getAllTasks(Authenticate authenticate) async {
+    var params = {
+      "pageNumber": 0, 
+      "pageSize": 25
+    };
+    var response = await httpClient.post('https://live.contractexperience.com/CMx_API/Common/task/2.0/user',
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status <= 500;
+        },
+        headers: {
+          HttpHeaders.acceptHeader: "application/json",
+          HttpHeaders.contentTypeHeader: "application/json",
+          "X-AUTH-TOKEN": authenticate.xAuthToken,
+          "X-CSRF-TOKEN": authenticate.xCsrfToken,
+        }
+      ),
+      data: jsonEncode(params),
+    );
+    if (response.statusCode == 200) {
+      print('*************');
+      print(response.data);
+      return response.data.map<Task>((obj) => Task.fromJson(obj)).toList();
+    } else {
+      throw new Exception(response.statusMessage);
+    }
   }
 
   Future<Setting> getSettings() async {
