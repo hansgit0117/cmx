@@ -9,6 +9,8 @@ import '../modules/contracts/bindings/contracts_binding.dart';
 import '../modules/contracts/views/expiring_contracts_view.dart';
 import '../modules/task/bindings/task_binding.dart';
 import '../modules/task/views/task_view.dart';
+import '../modules/notifications/bindings/notifications_binding.dart';
+import '../modules/notifications/views/notifications_view.dart';
 
 part 'app_routes.dart';
 
@@ -21,5 +23,6 @@ class AppPages {
     GetPage(name: Routes.FORGOT_PASSWORD, page: () => ForgotPasswordView(), binding: AuthBinding()),
     GetPage(name: Routes.EXPIRING_CONTRACTS, page: () => ExpiringContractsView(), binding: ContractsBinding()),
     GetPage(name: Routes.TASKS, page: () => TaskView(), binding: TaskBinding()),
+    GetPage(name: Routes.NOTIFICATIONS, page: () => NotificationsView(), binding: NotificationsBinding()),
   ];
 }

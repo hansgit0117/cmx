@@ -149,8 +149,6 @@ class MockApiClient {
       data: jsonEncode(params),
     );
     if (response.statusCode == 200) {
-      print('*************');
-      print(response.data);
       return response.data.map<Task>((obj) => Task.fromJson(obj)).toList();
     } else {
       throw new Exception(response.statusMessage);
@@ -166,5 +164,30 @@ class MockApiClient {
     // }
     var response = await Helper.getJsonFile('config/global_settings.json');
     return Setting.fromJson(response);
+  }
+
+  Future<String> getContractExpirySetting(Authenticate authenticate) async {
+    var response = await httpClient.get('https://live.contractexperience.com/CMx_API/Common/configuration/2.0/name/cmx.reminder.contract.expiry.email',
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status <= 500;
+        },
+        headers: {
+          HttpHeaders.acceptHeader: "application/json",
+          HttpHeaders.contentTypeHeader: "application/json",
+          "X-AUTH-TOKEN": authenticate.xAuthToken,
+          "X-CSRF-TOKEN": authenticate.xCsrfToken,
+          "domain": authenticate.domainName,
+        }
+      ),
+    );
+    if (response.statusCode == 200) {
+      return response.data ?? "";
+    } else if (response.statusCode == 204) {
+      return "";
+    } else {
+      throw new Exception(response.statusMessage);
+    }
   }
 }

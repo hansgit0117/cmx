@@ -30,6 +30,11 @@ class AuthController extends GetxController {
   );
   final AadOAuth oauth = AadOAuth(config);
 
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+  }
+
   /*
    * Login
    */
