@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'filter_bottom_sheet_widget.dart';
+
 class HomeSearchBarWidget extends StatelessWidget implements PreferredSize {
 
   Widget buildSearchBar() {
@@ -38,7 +40,10 @@ class HomeSearchBarWidget extends StatelessWidget implements PreferredSize {
               SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
-
+                  Get.bottomSheet(
+                    FilterBottomSheetWidget(),
+                    isScrollControlled: true,
+                  );
                 },
                 child: Container(
                   padding: const EdgeInsets.only(right: 10, left: 10, top: 10, bottom: 10),

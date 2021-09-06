@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../routes/app_pages.dart';
 
 class NotificationsButtonWidget extends StatelessWidget {
   const NotificationsButtonWidget({
@@ -15,7 +16,12 @@ class NotificationsButtonWidget extends StatelessWidget {
     return MaterialButton(
       elevation: 0,
       onPressed: () {
-
+        // if (Get.find<AuthService>().isAuth == true) {
+        //   Get.toNamed(Routes.NOTIFICATIONS);
+        // } else {
+        //   Get.toNamed(Routes.LOGIN);
+        // }
+        Get.toNamed(Routes.NOTIFICATIONS);
       },
       child: Stack(
         alignment: AlignmentDirectional.bottomEnd,
@@ -27,7 +33,7 @@ class NotificationsButtonWidget extends StatelessWidget {
           ),
           Container(
             child: Text(
-              "0",
+              "4",
               textAlign: TextAlign.center,
               style: Get.textTheme.caption.merge(
                 TextStyle(color: Get.theme.primaryColor, fontSize: 10),

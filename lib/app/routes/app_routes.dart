@@ -13,4 +13,7 @@ abstract class Routes {
 
   // Tasks routes
   static const TASKS = '/tasks';
+
+  // Notifications routes
+  static const NOTIFICATIONS = '/notifications';
 }
