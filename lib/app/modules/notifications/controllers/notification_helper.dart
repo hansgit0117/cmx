@@ -1,4 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+
+import '../bindings/notifications_binding.dart';
+import '../views/notifications_view.dart';
+import '../../../routes/app_pages.dart';
 
 class LocalNotificationHelper {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
@@ -15,15 +24,18 @@ class LocalNotificationHelper {
   }
 
   Future _onSelectNotification(String payload) async {
-    // Implement your own logic
+    if (payload != null) {
+      print('notification payload: $payload');
+    }
+    return Get.toNamed(Routes.NOTIFICATIONS);
   }
 
-  Future _onDidReceiveLocalNotification(
-      int id, String title, String body, String payload) async {
+  Future _onDidReceiveLocalNotification(int id, String title, String body, String payload) async {
     // Implement your own logic
   }
 
   Future<void> _initialize() async {
+    await _configureLocalTimeZone();
     AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -36,6 +48,12 @@ class LocalNotificationHelper {
 
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: _onSelectNotification);
+  }
+
+  Future<void> _configureLocalTimeZone() async {
+    tz.initializeTimeZones();
+    final timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName));
   }
 
   Future<void> showNotification() async {
@@ -56,5 +74,32 @@ class LocalNotificationHelper {
     await _flutterLocalNotificationsPlugin.show(
         0, 'Notification Title', 'Notification Body', platformChannelSpecifics,
         payload: 'Notification Payload');
+  }
+
+  Future<void> scheduleNotification(String title, String body, DateTime scheduledNotificationDateTime) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel id',
+      'channel name',
+      'channel description',
+      icon: '@mipmap/ic_launcher',
+      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      0, 
+      title, 
+      body, 
+      tz.TZDateTime.from(
+        scheduledNotificationDateTime,
+        tz.local,
+      ), 
+      platformChannelSpecifics,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime, 
+      androidAllowWhileIdle: true);
+  }
+
+  Future<void> cancelAllNotifications() async {
+    await _flutterLocalNotificationsPlugin.cancelAll();
   }
 }

@@ -183,9 +183,9 @@ class MockApiClient {
       ),
     );
     if (response.statusCode == 200) {
-      return response.data ?? "";
+      return response.data ?? "2,5,30,60,90,120";
     } else if (response.statusCode == 204) {
-      return "";
+      return "2,5,30,60,90,120";
     } else {
       throw new Exception(response.statusMessage);
     }

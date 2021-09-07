@@ -6,7 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'app/modules/notifications/controllers/notification_helper.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/services/auth_service.dart';
@@ -21,7 +20,6 @@ void initServices() async {
   await Get.putAsync(() => AuthService().init());
   await Get.putAsync(() => SettingsService().init());
   Firebase.initializeApp();
-  LocalNotificationHelper().showNotification();
   Get.log('All services started...');
 }
 
