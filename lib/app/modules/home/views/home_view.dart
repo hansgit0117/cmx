@@ -95,7 +95,9 @@ class HomeView extends GetView<HomeController> {
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(
                         children: [
-                          Expanded(child: Text("Expiring Contracts (" + controller.expiringContracts.length.toString() + ")".tr, style: Get.textTheme.headline5)),
+                          Expanded(child: Obx(() => 
+                            Text("Expiring Contracts (" + controller.expiringContracts.length.toString() + ")".tr, style: Get.textTheme.headline5)
+                          )),
                           MaterialButton(
                             elevation: 0,
                             onPressed: () {
@@ -114,7 +116,9 @@ class HomeView extends GetView<HomeController> {
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(
                         children: [
-                          Expanded(child: Text("Tasks (" + controller.tasks.length.toString() + ")".tr, style: Get.textTheme.headline5)),
+                          Expanded(child: Obx(() => 
+                          Text("Tasks (" + controller.tasks.length.toString() + ")".tr, style: Get.textTheme.headline5)
+                          )),
                           MaterialButton(
                             elevation: 0,
                             onPressed: () {

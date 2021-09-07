@@ -60,6 +60,10 @@ dependencies:
   aad_oauth: ^0.2.2
   # Flutter Alert
   rflutter_alert: ^2.0.2
+  # Notification
+  flutter_local_notifications: ^8.1.1+2
+  # Time zone
+  flutter_native_timezone: ^2.0.0
 
 #dependency_overrides:
 #  path_provider: 2.0.1
