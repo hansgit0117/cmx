@@ -6,6 +6,9 @@ class Notification extends Model {
   Map<String, dynamic> data;
   bool read;
   String createdAt;
+  String owner;
+  String contractNumber;
+  String status;
 
   Notification({this.id, this.type, this.data, this.read, this.createdAt});
 
@@ -42,6 +45,9 @@ class Notification extends Model {
     data['data'] = this.data;
     data['read'] = this.read;
     data['createdAt'] = this.createdAt;
+    data['owner'] = this.owner;
+    data['contractNumber'] = this.contractNumber;
+    data['status'] = this.status;
     
     return data;
   }
