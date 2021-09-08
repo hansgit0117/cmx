@@ -13,7 +13,7 @@ class NotificationItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // AuthService _authService = Get.find<AuthService>();
     return Dismissible(   
-      key: Key(this.notification.hashCode.toString()),
+      key: UniqueKey(),
       background: Container(
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -98,9 +98,21 @@ class NotificationItemWidget extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(fontWeight: notification.read ? FontWeight.w300 : FontWeight.w600)),
                   ),
                   Text(
+                    this.notification.contractNumber,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  Text(
+                    this.notification.owner,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  Text(
                     this.notification.createdAt,
                     style: Theme.of(context).textTheme.caption,
-                  )
+                  ),
+                  Text(
+                    this.notification.status,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
                 ],
               ),
             )

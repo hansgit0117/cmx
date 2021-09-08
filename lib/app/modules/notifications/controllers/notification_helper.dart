@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
-import '../bindings/notifications_binding.dart';
-import '../views/notifications_view.dart';
 import '../../../routes/app_pages.dart';
 
 class LocalNotificationHelper {
@@ -56,7 +53,7 @@ class LocalNotificationHelper {
     tz.setLocalLocation(tz.getLocation(timeZoneName));
   }
 
-  Future<void> showNotification() async {
+  Future<void> showNotification(String title, String body) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'channel id',
@@ -72,7 +69,7 @@ class LocalNotificationHelper {
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
     await _flutterLocalNotificationsPlugin.show(
-        0, 'Notification Title', 'Notification Body', platformChannelSpecifics,
+        0, title, body, platformChannelSpecifics,
         payload: 'Notification Payload');
   }
 

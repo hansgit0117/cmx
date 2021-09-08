@@ -64,6 +64,8 @@ class Task extends MediaModel {
     data['assignDate'] = this.assignDate;
     data['completionDate'] = this.completionDate;
     // data['contract'] = this.contract;
+    data['firstName'] = this.firstName;
+    data['lastName'] = this.lastName;
     data['id'] = this.taskId;
     data['recipientId'] = this.recipientId;
     data['name'] = this.taskName;

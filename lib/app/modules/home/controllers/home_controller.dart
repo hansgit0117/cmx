@@ -107,7 +107,6 @@ class HomeController extends GetxController {
   }  
 
   List<Notification> toNotification() {
-    LocalNotificationHelper().showNotification();
     final notificationsList = <Notification>[];
     // notifications from expiring contracts
     for (var expiringContract in expiringContracts) {
@@ -119,17 +118,20 @@ class HomeController extends GetxController {
         DateTime scheduledDateTime = datetime.subtract(Duration(days: int.parse(item)));
         if (scheduledDateTime.isAfter(DateTime.now())) {
           LocalNotificationHelper().scheduleNotification(title, body, scheduledDateTime);
-
           if (DateTime.now().compareTo(scheduledDateTime.subtract(Duration(days:1))) == 0 
               || DateTime.now().compareTo(scheduledDateTime) == 0
               || DateTime.now().compareTo(datetime.subtract(Duration(days:1))) == 0
               || DateTime.now().compareTo(datetime) == 0) {
+            LocalNotificationHelper().showNotification(title, body);
             Notification notification;
             notification = Notification();
             notification.id = expiringContract.contractId ?? '';
             notification.type = expiringContract.contractTitle ?? '';
             notification.read = false;
             notification.createdAt = expiringContract.expiryDate ?? '';
+            notification.contractNumber = expiringContract.contractNumber??'';
+            notification.owner = expiringContract.contractOwner??'';
+            notification.status = expiringContract.status??'';            
             notificationsList.add(notification);
           }     
         }
@@ -143,23 +145,23 @@ class HomeController extends GetxController {
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(task.assignDate), isUtc: true);
       String title = "Please complete this task.";
       String body = task.contract.contractTitle??"";
-      if (task.taskStatus != 'COMPLETED') {
+      if (task.taskStatus != 'COMPLETED' && task.taskType != 'External Review') {
+        LocalNotificationHelper().showNotification(title, body);
         for (var i = 1; i < 10; i++) {
           DateTime upcomingDateTime = DateTime.now().add(Duration(days: i));
           LocalNotificationHelper().scheduleNotification(title, body, DateTime(upcomingDateTime.year, upcomingDateTime.month, upcomingDateTime.day));
         }
-      }
-      
-      if (DateTime.now().compareTo(dateTime.subtract(Duration(days:1))) == 0
-          || DateTime.now().compareTo(dateTime) == 0) {
-            Notification notification;
-            notification = Notification();
-            notification.id = task.recipientId ?? '';
-            notification.type = task.contract.contractTitle ?? '';
-            notification.read = false;
-            notification.createdAt = DateFormat('MM/dd/yyyy, hh:mm a').format(dateTime) ?? '';
-            notificationsList.add(notification);
-      }
+        Notification notification;
+        notification = Notification();
+        notification.id = task.recipientId ?? '';
+        notification.type = task.contract.contractTitle ?? '';
+        notification.read = false;
+        notification.createdAt = DateFormat('MM/dd/yyyy, hh:mm a').format(dateTime) ?? '';
+        notification.contractNumber = task.contract.contractNumber??'';
+        notification.owner = task.firstName + " " + task.lastName;
+        notification.status = task.taskStatus;
+        notificationsList.add(notification);        
+      }      
     }
     // print("Tasks Notifications");
     // print(notificationsList);

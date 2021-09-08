@@ -27,7 +27,7 @@ class _CircularLoadingWidgetState extends State<CircularLoadingWidget> with Sing
           setState(() {});
         }
       });
-    Timer(Duration(seconds: 10), () {
+    Timer(Duration(seconds: 2), () {
       if (mounted) {
         animationController.forward();
       }
