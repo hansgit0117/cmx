@@ -249,20 +249,23 @@ class LoginView extends GetView<AuthController> {
                 ],
               )
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Get.offAndToNamed(Routes.FORGOT_PASSWORD);
-                  },
-                  child: Text(
-                    "Forgot Password?".tr,
-                  style: Get.textTheme.caption.merge(TextStyle(color: Get.theme.accentColor, fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ).paddingSymmetric(horizontal: 20),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     TextButton(
+            //       onPressed: () {
+            //         Get.offAndToNamed(Routes.FORGOT_PASSWORD);
+            //       },
+            //       child: Text(
+            //         "Forgot Password?".tr,
+            //       style: Get.textTheme.caption.merge(TextStyle(color: Get.theme.accentColor, fontWeight: FontWeight.bold)),
+            //       ),
+            //     ),
+            //   ],
+            // ).paddingSymmetric(horizontal: 20),
+            SizedBox(
+              height: 30,
+            ),
             BlockButtonWidget(
               onPressed: () async { 
                 context.loaderOverlay.show();

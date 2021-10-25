@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../home/controllers/home_controller.dart';
 import '../controllers/root_controller.dart';
+import '../../search/controllers/search_controller.dart';
 
 class RootBinding extends Bindings {
   @override
@@ -12,5 +13,8 @@ class RootBinding extends Bindings {
     Get.lazyPut<HomeController>(
       () => HomeController(),
     );
+    Get.lazyPut<SearchController>(
+      () => SearchController(),
+    );    
   }
 }

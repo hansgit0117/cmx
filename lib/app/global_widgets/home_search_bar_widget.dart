@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'filter_bottom_sheet_widget.dart';
+import '../routes/app_pages.dart';
 
 class HomeSearchBarWidget extends StatelessWidget implements PreferredSize {
 
@@ -20,12 +21,12 @@ class HomeSearchBarWidget extends StatelessWidget implements PreferredSize {
             borderRadius: BorderRadius.circular(10)),
         child: GestureDetector(
           onTap: () {
-
+            Get.toNamed(Routes.SEARCH, arguments: "home_search");
           },
           child: Row(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(right: 12, left: 0),
+                padding: const EdgeInsets.only(right: 12, left: 0, bottom: 10, top: 10),
                 child: Icon(Icons.search, color: Get.theme.accentColor),
               ),
               Expanded(
@@ -38,33 +39,33 @@ class HomeSearchBarWidget extends StatelessWidget implements PreferredSize {
                 ),
               ),
               SizedBox(width: 8),
-              GestureDetector(
-                onTap: () {
-                  Get.bottomSheet(
-                    FilterBottomSheetWidget(),
-                    isScrollControlled: true,
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.only(right: 10, left: 10, top: 10, bottom: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: Get.theme.focusColor.withOpacity(0.1),
-                  ),
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 4,
-                    children: [
-                      Text("Filter".tr, style: Get.textTheme.bodyText2),
-                      Icon(
-                        Icons.filter_list,
-                        color: Get.theme.hintColor,
-                        size: 21,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Get.bottomSheet(
+              //       FilterBottomSheetWidget(),
+              //       isScrollControlled: true,
+              //     );
+              //   },
+              //   child: Container(
+              //     padding: const EdgeInsets.only(right: 10, left: 10, top: 10, bottom: 10),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.all(Radius.circular(8)),
+              //       color: Get.theme.focusColor.withOpacity(0.1),
+              //     ),
+              //     child: Wrap(
+              //       crossAxisAlignment: WrapCrossAlignment.center,
+              //       spacing: 4,
+              //       children: [
+              //         Text("Filter".tr, style: Get.textTheme.bodyText2),
+              //         Icon(
+              //           Icons.filter_list,
+              //           color: Get.theme.hintColor,
+              //           size: 21,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

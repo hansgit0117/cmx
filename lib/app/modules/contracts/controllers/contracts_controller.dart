@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../home/controllers/home_controller.dart';
 import '../../../services/auth_service.dart';
 import '../../../models/oauth20models/authenticate_model.dart';
 import '../../../../common/ui.dart';
@@ -22,7 +23,8 @@ class ContractsController extends GetxController {
   @override
   Future<void> onInit() async {
     authenticate = Get.find<AuthService>().authenticate.value;
-    await refreshContracts();
+    // await refreshContracts();
+    expiringContracts.value = Get.find<HomeController>().expiringContracts;
     super.onInit();
   }
 

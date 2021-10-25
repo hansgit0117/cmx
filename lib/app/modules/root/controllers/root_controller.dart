@@ -5,6 +5,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../search/views/search_view.dart';
+import '../../contracts/views/expiring_contracts_view.dart';
+import '../../notifications/views/notifications_view.dart';
+import '../../task/views/task_view.dart';
 import '../../../routes/app_pages.dart';
 import '../../home/views/home_view.dart';
 
@@ -23,9 +27,10 @@ class RootController extends GetxController {
 
   List<Widget> pages = [
     HomeView(),
-    HomeView(),
-    HomeView(),
-    HomeView(),
+    ExpiringContractsView(),
+    TaskView(),
+    NotificationsView(),
+    // SearchView(),
   ];
 
   Widget get currentPage => pages[currentIndex.value];

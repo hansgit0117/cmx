@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../home/controllers/home_controller.dart';
 import '../../../services/auth_service.dart';
 import '../../../models/oauth20models/authenticate_model.dart';
 import '../../../../common/ui.dart';
@@ -22,7 +23,8 @@ class TaskController extends GetxController {
   @override
   Future<void> onInit() async {
     authenticate = await Get.find<AuthService>().authenticate.value;
-    await refreshTasks();
+    // await refreshTasks();
+    tasks.value = Get.find<HomeController>().tasks;
     super.onInit();
   }
 

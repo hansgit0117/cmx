@@ -42,6 +42,7 @@ void main() async {
       themeMode: Get.find<SettingsService>().getThemeMode(),
       theme: Get.find<SettingsService>().getLightTheme(),
       darkTheme: Get.find<SettingsService>().getDarkTheme(),
+      // showSemanticsDebugger: true,
     ),
   );
 }

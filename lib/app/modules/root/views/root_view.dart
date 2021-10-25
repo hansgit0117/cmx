@@ -28,16 +28,16 @@ class RootView extends GetView<RootController> {
               label: "Home".tr,
             ),
             CustomBottomNavigationItem(
-              icon: Icons.request_page_outlined,
-              label: "Requests".tr,
-            ),
-            CustomBottomNavigationItem(
               icon: Icons.import_contacts_rounded,
               label: "Contracts".tr,
             ),
             CustomBottomNavigationItem(
-              icon: Icons.person_outline,
-              label: "Account".tr,
+              icon: Icons.task,
+              label: "Tasks".tr,
+            ),
+            CustomBottomNavigationItem(
+              icon: Icons.notifications_none_outlined,
+              label: "Notifications".tr,
             ),
           ],
         ),

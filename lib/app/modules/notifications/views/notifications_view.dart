@@ -6,6 +6,7 @@ import '../controllers/notifications_controller.dart';
 import '../widgets/notification_item_widget.dart';
 
 class NotificationsView extends GetView<NotificationsController> {
+  final controller = Get.put(NotificationsController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

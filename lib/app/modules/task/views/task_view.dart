@@ -10,6 +10,7 @@ import '../../../global_widgets/search_bar_widget.dart';
 import '../controllers/task_controller.dart';
 
 class TaskView extends GetView<TaskController> {
+  final controller = Get.put(TaskController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +35,7 @@ class TaskView extends GetView<TaskController> {
           child: ListView(
             primary: true,
             children: [
-              SearchBarWidget().paddingSymmetric(horizontal: 20, vertical: 10),
+              // SearchBarWidget().paddingSymmetric(horizontal: 20, vertical: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 10),
                 child: Row(children: [
