@@ -1,18 +1,30 @@
 import 'package:get/get.dart';
 
 import '../../../../common/ui.dart';
-// import '../../../models/category_model.dart';
-// import '../../../models/e_service_model.dart';
-// import '../../../repositories/category_repository.dart';
-// import '../../../repositories/e_service_repository.dart';
+import '../../../models/expiring_contract_model.dart';
+import '../../../models/expiring_contract_status_model.dart';
+import '../../home/controllers/home_controller.dart';
 
 class SearchController extends GetxController {
   final heroTag = "".obs;
-  // final categories = <Category>[].obs;
-
-  // final eServices = <EService>[].obs;
-  // EServiceRepository _eServiceRepository;
-  // CategoryRepository _categoryRepository;
+  final expiringContracts = <ExpiringContract>[].obs;
+  final expiringContractsAfterSearch = <ExpiringContract>[].obs;
+  final expiringContractsAfterFilter = <ExpiringContract>[].obs;
+  List<ExpiringContractStatusModel> expiringContractStatus = ExpiringContractStatusModel.getExpiringContractStatus();
+  // final expiringContractStatus = <Map>[
+  //   {
+  //     "title": "asdfdsafds",
+  //     "isCheck": false
+  //   },
+  //   {
+  //     "title": "mnbv",
+  //     "isCheck": false
+  //   },
+  //   {
+  //     "title": "piopiopio",
+  //     "isCheck": false
+  //   }        
+  // ].obs;
 
   SearchController() {
     // _eServiceRepository = new EServiceRepository();
@@ -23,6 +35,9 @@ class SearchController extends GetxController {
   void onInit() async {
     await refreshSearch();
     super.onInit();
+    expiringContracts.value = Get.find<HomeController>().expiringContracts;
+    expiringContractsAfterFilter.value = expiringContracts;
+    expiringContractsAfterSearch.value = expiringContractsAfterFilter;
   }
 
   @override
@@ -38,29 +53,39 @@ class SearchController extends GetxController {
     }
   }
 
-  // Future searchEServices({String keywords}) async {
-  //   try {
-  //     eServices.value = await _eServiceRepository.getAll();
-  //     if (keywords != null && keywords.isNotEmpty) {
-  //       eServices.value = eServices.where((EService _service) {
-  //         return _service.title.toLowerCase().contains(keywords.toLowerCase());
-  //       }).toList();
-  //     }
-  //   } catch (e) {
-  //     Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
-  //   }
-  // }
+  Future searchContract({String keywords}) async {
+    try {
+      // expiringContracts.value = await _eServiceRepository.getAll();
+      if (keywords != null && keywords.isNotEmpty) {
+        expiringContractsAfterSearch.value = expiringContractsAfterFilter.where((ExpiringContract _expiringContract) {
+          return _expiringContract.contractTitle.toLowerCase().contains(keywords.toLowerCase());
+        }).toList();
+      } else {
+        expiringContractsAfterSearch.value = expiringContractsAfterFilter;
+      }
+    } catch (e) {
+      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+    }
+  }
 
-  // Future getCategories() async {
-  //   try {
-  //     _categoryRepository.getAll().then((value) {
-  //       categories.clear();
-  //       return value;
-  //     }).then((value) {
-  //       categories.value = value;
-  //     });
-  //   } catch (e) {
-  //     Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
-  //   }
-  // }
+  void filterExpiringContracts () {
+    try {
+      expiringContractsAfterFilter.value = expiringContracts.where((ExpiringContract _expiringContract) {
+        bool returnValue = false;
+        expiringContractStatus.forEach((element) {
+          if (_expiringContract.status == element.title)
+            returnValue = element.isCheck;
+        });
+        return returnValue;
+      }).toList();
+      expiringContractsAfterSearch.value = expiringContractsAfterFilter;
+    } catch (e) {
+      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+    }
+  }
+
+  void itemChange (bool value, int index) {
+    expiringContractStatus[index].isCheck = value;
+    update();
+  }
 }

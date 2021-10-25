@@ -57,7 +57,7 @@ dependencies:
   # Flutter Overlay Spinner  
   loader_overlay: ^2.0.2
   # Azure OAuth
-  aad_oauth: ^0.2.2
+  aad_oauth: ^0.3.0
   # Flutter Alert
   rflutter_alert: ^2.0.2
   # Notification

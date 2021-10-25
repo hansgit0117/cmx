@@ -23,12 +23,12 @@ class AuthController extends GetxController {
 
   // Azure OAuth
   static final Config config = Config(
-    tenant: 'YOUR_TENANT_ID',
-    clientId: 'YOUR_CLIENT_ID',
+    tenant: 'acd001e5-630e-4ba1-99ef-cb3e64c1c109',
+    clientId: '56158050-c86d-4020-bace-2865cb3c49f6',
     scope: 'openid profile offline_access',
     redirectUri: 'https://login.live.com/oauth20_desktop.srf',
   );
-  final AadOAuth oauth = AadOAuth(config);
+  final AadOAuth oauth = AadOAuth(config);    
 
   @override
   Future<void> onInit() async {
@@ -71,15 +71,16 @@ class AuthController extends GetxController {
   }
 
   void loginWithAzure() async {
-    // try {
-    //   await oauth.login();
-    //   var accessToken = await oauth.getAccessToken();
-    //   authType = "azure";
-    //   print('Logged in successfully, your access token: $accessToken');
-    // } catch (e) {
-    //   print(e);
-    //   Get.showSnackbar(Ui.ErrorSnackBar(message: "Incorrect credentials. Please try again.".tr));
-    // }
+    try {
+      await oauth.logout();
+      await oauth.login();
+      var accessToken = await oauth.getAccessToken();
+      authType = "azure";
+      print('Logged in successfully, your access token: $accessToken');
+    } catch (e) {
+      print(e);
+      Get.showSnackbar(Ui.ErrorSnackBar(message: "Incorrect credentials. Please try again.".tr));
+    }
     await Future.delayed(Duration(milliseconds: 2000));
   }
 

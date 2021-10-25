@@ -21,79 +21,39 @@ class FilterBottomSheetWidget extends GetView<SearchController> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 80),
-            child: ListView(
+            child: Container(
               padding: EdgeInsets.only(top: 20, bottom: 15, left: 4, right: 4),
-              children: [
-                ExpansionTile(
-                  title: Text("Available Provider".tr, style: Get.textTheme.bodyText2),
-                  children: [
-                    CheckboxListTile(
-                      controlAffinity: ListTileControlAffinity.trailing,
-                      value: true,
-                      onChanged: (value) {
-                        // setState(() {
-                        //   _con.filter?.open = value;
-                        // });
-                      },
-                      title: Text(
-                        "My expiring contracts".tr,
-                        style: Get.textTheme.bodyText1,
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                        maxLines: 1,
-                      ),
+              child: controller.expiringContractStatus.isEmpty ? CircularLoadingWidget(height: 100)
+                : SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: 
+                    StatefulBuilder(
+                      builder: (BuildContext context, StateSetter setState) {
+                        return ExpansionTile(
+                          title: Text("Contract Status".tr, style: Get.textTheme.bodyText2),
+                          children: List.generate(controller.expiringContractStatus.length, (index) {
+                            var _expiringContractStatus = controller.expiringContractStatus.elementAt(index);
+                            return CheckboxListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              value: _expiringContractStatus.isCheck,
+                              onChanged: (value) {
+                                controller.itemChange(value, index);
+                                controller.update();
+                              },
+                              title: Text(
+                                _expiringContractStatus.title,
+                                style: Get.textTheme.bodyText1,
+                                overflow: TextOverflow.fade,
+                                softWrap: false,
+                                maxLines: 1,
+                              ),
+                            );
+                          }),
+                          initiallyExpanded: true,
+                        );
+                      }
                     ),
-                    CheckboxListTile(
-                      controlAffinity: ListTileControlAffinity.trailing,
-                      value: true,
-                      onChanged: (value) {
-                        // setState(() {
-                        //   _con.filter?.open = value;
-                        // });
-                      },
-                      title: Text(
-                        "Only Available".tr,
-                        style: Get.textTheme.bodyText1,
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                        maxLines: 1,
-                      ),
-                    ),                    
-                  ],
-                  initiallyExpanded: true,
-                ),
-                // GetX(initState: (_) {
-                //   print("initState");
-                //   controller.getCategories();
-                // }, builder: (_) {
-                //   if (controller.categories.isEmpty) {
-                //     return CircularLoadingWidget(height: 100);
-                //   }
-                //   return ExpansionTile(
-                //     title: Text("Categories".tr, style: Get.textTheme.bodyText2),
-                //     children: List.generate(controller.categories.length, (index) {
-                //       var _category = controller.categories.elementAt(index);
-                //       return CheckboxListTile(
-                //         controlAffinity: ListTileControlAffinity.trailing,
-                //         value: false,
-                //         onChanged: (value) {
-                //           // setState(() {
-                //           //   _con.filter?.open = value;
-                //           // });
-                //         },
-                //         title: Text(
-                //           _category.name,
-                //           style: Get.textTheme.bodyText1,
-                //           overflow: TextOverflow.fade,
-                //           softWrap: false,
-                //           maxLines: 1,
-                //         ),
-                //       );
-                //     }),
-                //     initiallyExpanded: true,
-                //   );
-                // }),
-              ],
+                )
             ),
           ),
           Container(
@@ -104,6 +64,7 @@ class FilterBottomSheetWidget extends GetView<SearchController> {
                 MaterialButton(
                   elevation: 0,
                   onPressed: () {
+                    controller.filterExpiringContracts();
                     Get.back();
                   },
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

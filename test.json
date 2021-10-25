@@ -1,0 +1,408 @@
+{
+    "currentUser": {
+      "id": 0,
+      "firstName": "string",
+      "lastName": "string",
+      "middleName": "string",
+      "emailID": "string",
+      "primaryContactPhone": "string",
+      "alternateContactPhone": "string",
+      "password": "string",
+      "lockCount": 0,
+      "lastLoginDate": "2021-08-09T10:24:22.384Z",
+      "statusId": 0,
+      "createdDate": "2021-08-09T10:24:22.384Z",
+      "createdBy": "string",
+      "modifiedDate": "2021-08-09T10:24:22.384Z",
+      "modifiedBy": "string",
+      "isActive": false,
+      "isApprover": false,
+      "userType": {
+        "userTypeId": 0,
+        "type": "string"
+      },
+      "profilePicture": [
+        "string"
+      ],
+      "userRoleList": [
+        {
+          "roleId": 0,
+          "name": "string",
+          "description": "string",
+          "createdDate": "2021-08-09T10:24:22.385Z",
+          "createdBy": "string",
+          "modifiedDate": "2021-08-09T10:24:22.385Z",
+          "modifiedBy": "string",
+          "isActive": false,
+          "permissionSchemeModel": {
+            "permissionSchemeId": 0,
+            "name": "string",
+            "description": "string",
+            "isActive": false,
+            "permissionSchemeMappingModels": [
+              {
+                "permissionSchemeMappingId": 0,
+                "permissionSchemeId": 0,
+                "permissionModel": {
+                  "permissionId": 0,
+                  "name": "string",
+                  "description": "string",
+                  "isActive": false
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "userSecurityQuestionList": [
+        {
+          "userSecurityQuestionId": 0,
+          "userId": 0,
+          "answer": "string",
+          "createdDate": "2021-08-09T10:24:22.385Z",
+          "createdBy": "string",
+          "modifiedDate": "2021-08-09T10:24:22.385Z",
+          "modifiedBy": "string",
+          "securityQuestionAPIModel": {
+            "securityQuestionId": 0,
+            "question": "string",
+            "isActive": false
+          }
+        }
+      ],
+      "department": {
+        "departmentId": 0,
+        "name": "string",
+        "description": "string",
+        "locationAPIModel": {
+          "locationId": 0,
+          "name": "string",
+          "description": "string",
+          "organizationAPIModel": {
+            "organizationId": 0,
+            "name": "string",
+            "companyWebSite": "string",
+            "businessDetails": "string",
+            "companyPhone": "string",
+            "portalURL": "string",
+            "industryTypeAPIModel": {
+              "industryTypeId": 0,
+              "name": "string",
+              "isActive": false
+            },
+            "addressAPIModel": {
+              "addressId": 0,
+              "addressLine1": "string",
+              "addressLine2": "string",
+              "zipcode": "string",
+              "addressTypeAPIModel": {
+                "addressTypeId": 0,
+                "name": "string"
+              },
+              "countryAPIModel": {
+                "countryId": 0,
+                "name": "string",
+                "isActive": false
+              },
+              "stateAPIModel": {
+                "stateId": 0,
+                "name": "string",
+                "isActive": false,
+                "countryAPIModel": {
+                  "countryId": 0,
+                  "name": "string",
+                  "isActive": false
+                }
+              },
+              "city": "string",
+              "userId": 0
+            },
+            "statusAPIModel": {
+              "statusId": 0,
+              "name": "string",
+              "statusTypeAPIModel": {
+                "statusTypeId": 0,
+                "name": "string",
+                "isActive": false
+              }
+            },
+            "isActive": false,
+            "companyLogo": [
+              "string"
+            ]
+          },
+          "addressAPIModel": {
+            "addressId": 0,
+            "addressLine1": "string",
+            "addressLine2": "string",
+            "zipcode": "string",
+            "addressTypeAPIModel": {
+              "addressTypeId": 0,
+              "name": "string"
+            },
+            "countryAPIModel": {
+              "countryId": 0,
+              "name": "string",
+              "isActive": false
+            },
+            "stateAPIModel": {
+              "stateId": 0,
+              "name": "string",
+              "isActive": false,
+              "countryAPIModel": {
+                "countryId": 0,
+                "name": "string",
+                "isActive": false
+              }
+            },
+            "city": "string",
+            "userId": 0
+          },
+          "statusAPIModel": {
+            "statusId": 0,
+            "name": "string",
+            "statusTypeAPIModel": {
+              "statusTypeId": 0,
+              "name": "string",
+              "isActive": false
+            }
+          },
+          "isActive": false
+        },
+        "statusAPIModel": {
+          "statusId": 0,
+          "name": "string",
+          "statusTypeAPIModel": {
+            "statusTypeId": 0,
+            "name": "string",
+            "isActive": false
+          }
+        },
+        "isActive": false,
+        "permissionScheme": {
+          "permissionSchemeId": 0,
+          "name": "string",
+          "description": "string",
+          "isActive": false,
+          "permissionSchemeMappingModels": [
+            {
+              "permissionSchemeMappingId": 0,
+              "permissionSchemeId": 0,
+              "permissionModel": {
+                "permissionId": 0,
+                "name": "string",
+                "description": "string",
+                "isActive": false
+              }
+            }
+          ]
+        }
+      },
+      "location": {
+        "locationId": 0,
+        "name": "string",
+        "description": "string",
+        "organizationAPIModel": {
+          "organizationId": 0,
+          "name": "string",
+          "companyWebSite": "string",
+          "businessDetails": "string",
+          "companyPhone": "string",
+          "portalURL": "string",
+          "industryTypeAPIModel": {
+            "industryTypeId": 0,
+            "name": "string",
+            "isActive": false
+          },
+          "addressAPIModel": {
+            "addressId": 0,
+            "addressLine1": "string",
+            "addressLine2": "string",
+            "zipcode": "string",
+            "addressTypeAPIModel": {
+              "addressTypeId": 0,
+              "name": "string"
+            },
+            "countryAPIModel": {
+              "countryId": 0,
+              "name": "string",
+              "isActive": false
+            },
+            "stateAPIModel": {
+              "stateId": 0,
+              "name": "string",
+              "isActive": false,
+              "countryAPIModel": {
+                "countryId": 0,
+                "name": "string",
+                "isActive": false
+              }
+            },
+            "city": "string",
+            "userId": 0
+          },
+          "statusAPIModel": {
+            "statusId": 0,
+            "name": "string",
+            "statusTypeAPIModel": {
+              "statusTypeId": 0,
+              "name": "string",
+              "isActive": false
+            }
+          },
+          "isActive": false,
+          "companyLogo": [
+            "string"
+          ]
+        },
+        "addressAPIModel": {
+          "addressId": 0,
+          "addressLine1": "string",
+          "addressLine2": "string",
+          "zipcode": "string",
+          "addressTypeAPIModel": {
+            "addressTypeId": 0,
+            "name": "string"
+          },
+          "countryAPIModel": {
+            "countryId": 0,
+            "name": "string",
+            "isActive": false
+          },
+          "stateAPIModel": {
+            "stateId": 0,
+            "name": "string",
+            "isActive": false,
+            "countryAPIModel": {
+              "countryId": 0,
+              "name": "string",
+              "isActive": false
+            }
+          },
+          "city": "string",
+          "userId": 0
+        },
+        "statusAPIModel": {
+          "statusId": 0,
+          "name": "string",
+          "statusTypeAPIModel": {
+            "statusTypeId": 0,
+            "name": "string",
+            "isActive": false
+          }
+        },
+        "isActive": false
+      },
+      "organization": {
+        "organizationId": 0,
+        "name": "string",
+        "companyWebSite": "string",
+        "businessDetails": "string",
+        "companyPhone": "string",
+        "portalURL": "string",
+        "industryTypeAPIModel": {
+          "industryTypeId": 0,
+          "name": "string",
+          "isActive": false
+        },
+        "addressAPIModel": {
+          "addressId": 0,
+          "addressLine1": "string",
+          "addressLine2": "string",
+          "zipcode": "string",
+          "addressTypeAPIModel": {
+            "addressTypeId": 0,
+            "name": "string"
+          },
+          "countryAPIModel": {
+            "countryId": 0,
+            "name": "string",
+            "isActive": false
+          },
+          "stateAPIModel": {
+            "stateId": 0,
+            "name": "string",
+            "isActive": false,
+            "countryAPIModel": {
+              "countryId": 0,
+              "name": "string",
+              "isActive": false
+            }
+          },
+          "city": "string",
+          "userId": 0
+        },
+        "statusAPIModel": {
+          "statusId": 0,
+          "name": "string",
+          "statusTypeAPIModel": {
+            "statusTypeId": 0,
+            "name": "string",
+            "isActive": false
+          }
+        },
+        "isActive": false,
+        "companyLogo": [
+          "string"
+        ]
+      },
+      "isMFAEnabled": false,
+      "qrCode": "string",
+      "secretKey": "string",
+      "userGroups": [
+        {
+          "groupDetailsId": 0,
+          "name": "string",
+          "description": "string",
+          "groupDetailsTypeAPIModel": {
+            "groupDetailsTypeId": 0,
+            "type": "string",
+            "isActive": false
+          },
+          "isActive": false,
+          "permissionSchemeModel": {
+            "permissionSchemeId": 0,
+            "name": "string",
+            "description": "string",
+            "isActive": false,
+            "permissionSchemeMappingModels": [
+              {
+                "permissionSchemeMappingId": 0,
+                "permissionSchemeId": 0,
+                "permissionModel": {
+                  "permissionId": 0,
+                  "name": "string",
+                  "description": "string",
+                  "isActive": false
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "timeZone": "string",
+      "notificationsState": false,
+      "idp": "string",
+      "lang": "string",
+      "requestLink": "string",
+      "initials": "string"
+    },
+    "transactionRequest": {
+      "sessionKey": "string",
+      "instanceId": "string"
+    },
+    "sessionId": "string",
+    "ipAdress": "string",
+    "domainName": "string",
+    "actionEnum": "ADD",
+    "filterList": [
+      {
+        "filterKey": "ID",
+        "filterKeyType": "CONTRACT",
+        "filterValue": 0,
+        "sortOrder": "ASC"
+      }
+    ],
+    "token": "string",
+    "expiryDate": "2021-08-09T10:24:22.385Z"
+  }

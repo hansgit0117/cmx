@@ -90,7 +90,7 @@ class HomeView extends GetView<HomeController> {
               SliverToBoxAdapter(
                 child: Wrap(
                   children: [
-                    AddressWidget(),
+                    // AddressWidget(),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(

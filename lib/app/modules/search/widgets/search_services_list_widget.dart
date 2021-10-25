@@ -1,33 +1,33 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-// import '../../../global_widgets/circular_loading_widget.dart';
-// import '../../../models/e_service_model.dart';
-// import '../../category/widgets/services_list_item_widget.dart';
+import 'search_services_list_item_widget.dart';
+import '../../../global_widgets/circular_loading_widget.dart';
+import '../../../models/expiring_contract_model.dart';
 
-// class SearchServicesListWidget extends StatelessWidget {
-//   final List<EService> services;
+class SearchServicesListWidget extends StatelessWidget {
+  final List<ExpiringContract> expiringContracts;
 
-//   SearchServicesListWidget({Key key, List<EService> this.services}) : super(key: key);
+  SearchServicesListWidget({Key key, List<ExpiringContract> this.expiringContracts}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Obx(() {
-//       if (this.services.isEmpty) {
-//         return CircularLoadingWidget(height: 300);
-//       } else {
-//         return ListView.builder(
-//           padding: EdgeInsets.only(bottom: 10, top: 10),
-//           primary: false,
-//           shrinkWrap: true,
-//           itemCount: services.length,
-//           itemBuilder: ((_, index) {
-//             var _service = services.elementAt(index);
-//             return ServicesListItemWidget(service: _service);
-//           }),
-//         );
-//       }
-//     });
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      if (this.expiringContracts.isEmpty) {
+        return CircularLoadingWidget(height: 300);
+      } else {
+        return ListView.builder(
+          padding: EdgeInsets.only(bottom: 10, top: 10),
+          primary: false,
+          shrinkWrap: true,
+          itemCount: expiringContracts.length,
+          itemBuilder: ((_, index) {
+            var _expiringContract = expiringContracts.elementAt(index);
+            return SearchServicesListItemWidget(expiringContract: _expiringContract, expanded: index == 0);
+          }),
+        );
+      }
+    });
+  }
+}

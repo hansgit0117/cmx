@@ -1,213 +1,130 @@
-// /*
-//  * Copyright (c) 2020 .
-//  */
 
-// import 'package:cached_network_image/cached_network_image.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-// import '../../../../common/ui.dart';
-// import '../../../models/e_service_model.dart';
-// import '../../../routes/app_pages.dart';
+import '../../../models/expiring_contract_model.dart';
+import '../../../../common/ui.dart';
+import '../../../routes/app_pages.dart';
 
-// class SearchServicesListItemWidget extends StatelessWidget {
-//   const SearchServicesListItemWidget({
-//     Key key,
-//     @required EService service,
-//   })  : _service = service,
-//         super(key: key);
+class SearchServicesListItemWidget extends StatelessWidget {
+  const SearchServicesListItemWidget({
+    Key key,
+    @required ExpiringContract expiringContract,
+    this.expanded
+  })  : _expiringContract = expiringContract,
+        super(key: key);
 
-//   final EService _service;
+  final ExpiringContract _expiringContract;
+  final bool expanded;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         Get.toNamed(Routes.E_SERVICE, arguments: _service);
-//       },
-//       child: Container(
-//         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-//         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-//         decoration: Ui.getBoxDecoration(),
-//         child: Row(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Column(
-//               children: [
-//                 Hero(
-//                   tag: _service.id,
-//                   child: ClipRRect(
-//                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-//                     child: CachedNetworkImage(
-//                       height: 80,
-//                       width: 80,
-//                       fit: BoxFit.cover,
-//                       imageUrl: _service.firstMediaUrl,
-//                       placeholder: (context, url) => Image.asset(
-//                         'assets/img/loading.gif',
-//                         fit: BoxFit.cover,
-//                         width: double.infinity,
-//                         height: 80,
-//                       ),
-//                       errorWidget: (context, url, error) => Icon(Icons.error_outline),
-//                     ),
-//                   ),
-//                 ),
-//                 if (_service.eProvider.available)
-//                   Container(
-//                     width: 80,
-//                     child: Text("Available".tr,
-//                         maxLines: 1,
-//                         style: Get.textTheme.bodyText2.merge(
-//                           TextStyle(color: Colors.green, height: 1.4, fontSize: 10),
-//                         ),
-//                         softWrap: false,
-//                         textAlign: TextAlign.center,
-//                         overflow: TextOverflow.fade),
-//                     decoration: BoxDecoration(
-//                       color: Colors.green.withOpacity(0.2),
-//                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10)),
-//                     ),
-//                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 6),
-//                   ),
-//                 if (!_service.eProvider.available)
-//                   Container(
-//                     width: 80,
-//                     child: Text("Offline".tr,
-//                         maxLines: 1,
-//                         style: Get.textTheme.bodyText2.merge(
-//                           TextStyle(color: Colors.grey, height: 1.4, fontSize: 10),
-//                         ),
-//                         softWrap: false,
-//                         textAlign: TextAlign.center,
-//                         overflow: TextOverflow.fade),
-//                     decoration: BoxDecoration(
-//                       color: Colors.grey.withOpacity(0.2),
-//                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10)),
-//                     ),
-//                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 6),
-//                   ),
-//               ],
-//             ),
-//             SizedBox(width: 12),
-//             Expanded(
-//               child: Wrap(
-//                 runSpacing: 10,
-//                 alignment: WrapAlignment.start,
-//                 children: <Widget>[
-//                   Row(
-//                     children: [
-//                       Text(
-//                         _service.title ?? '',
-//                         style: Get.textTheme.bodyText2,
-//                         maxLines: 3,
-//                         // textAlign: TextAlign.end,
-//                       ),
-//                     ],
-//                   ),
-//                   Divider(height: 8, thickness: 1),
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       Wrap(
-//                         crossAxisAlignment: WrapCrossAlignment.center,
-//                         spacing: 5,
-//                         children: [
-//                           SizedBox(
-//                             height: 32,
-//                             child: Chip(
-//                               padding: EdgeInsets.all(0),
-//                               label: Row(
-//                                 mainAxisAlignment: MainAxisAlignment.center,
-//                                 children: <Widget>[
-//                                   Icon(
-//                                     Icons.star,
-//                                     color: Get.theme.accentColor,
-//                                     size: 18,
-//                                   ),
-//                                   Text(_service.rate.toString(), style: Get.textTheme.bodyText2.merge(TextStyle(color: Get.theme.accentColor, height: 1.4))),
-//                                 ],
-//                               ),
-//                               backgroundColor: Get.theme.accentColor.withOpacity(0.15),
-//                               shape: StadiumBorder(),
-//                             ),
-//                           ),
-//                           Text(
-//                             "From (%s)".trArgs([_service.totalReviews.toString()]),
-//                             style: Get.textTheme.bodyText1,
-//                           ),
-//                         ],
-//                       ),
-//                       Ui.getPrice(_service.minPrice, style: Get.textTheme.headline6),
-//                     ],
-//                   ),
-//                   Row(
-//                     children: [
-//                       // TODO check if eProvider is company or freelancer
-//                       // Icon(
-//                       //   Icons.person_outline,
-//                       //   size: 18,
-//                       //   color: Get.theme.focusColor,
-//                       // ),
-//                       Icon(
-//                         Icons.home_work_outlined,
-//                         size: 18,
-//                         color: Get.theme.focusColor,
-//                       ),
-//                       SizedBox(width: 5),
-//                       Flexible(
-//                         child: Text(
-//                           _service.eProvider.name,
-//                           maxLines: 1,
-//                           overflow: TextOverflow.fade,
-//                           softWrap: false,
-//                           style: Get.textTheme.bodyText1,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   Row(
-//                     children: [
-//                       Icon(
-//                         Icons.place_outlined,
-//                         size: 18,
-//                         color: Get.theme.focusColor,
-//                       ),
-//                       SizedBox(width: 5),
-//                       Flexible(
-//                         child: Text(
-//                           _service.eProvider.address,
-//                           maxLines: 1,
-//                           overflow: TextOverflow.fade,
-//                           softWrap: false,
-//                           style: Get.textTheme.bodyText1,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   Divider(height: 8, thickness: 1),
-//                   Wrap(
-//                     spacing: 5,
-//                     children: List.generate(_service.subCategories.length, (index) {
-//                       return Container(
-//                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-//                         child: Text(_service.subCategories.elementAt(index).name, style: Get.textTheme.caption.merge(TextStyle(fontSize: 10))),
-//                         decoration: BoxDecoration(
-//                             color: Get.theme.primaryColor,
-//                             border: Border.all(
-//                               color: Get.theme.focusColor.withOpacity(0.2),
-//                             ),
-//                             borderRadius: BorderRadius.all(Radius.circular(20))),
-//                       );
-//                     }),
-//                     runSpacing: 5,
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 8),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      decoration: Ui.getBoxDecoration(
+          border: Border.fromBorderSide(BorderSide.none),
+          gradient: new LinearGradient(
+              colors: [_expiringContract.color.withOpacity(0.5), _expiringContract.color.withOpacity(0.1)],
+              begin: AlignmentDirectional.topStart,
+              //const FractionalOffset(1, 0),
+              end: AlignmentDirectional.topEnd,
+              stops: [0.0, 0.5],
+              tileMode: TileMode.clamp)),
+      child: Theme(
+        data: Get.theme.copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          initiallyExpanded: this.expanded,
+          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+          title: InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Theme.of(context).accentColor.withOpacity(0.08),
+              onTap: () {
+                // Get.toNamed(Routes.EXPIRING_CONTRACTS, arguments: _expiringContract);
+                //Navigator.of(context).pushNamed('/Details', arguments: RouteArgument(id: '0', param: market.id, heroTag: heroTag));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: (_expiringContract.mediaUrl.toLowerCase().endsWith('.svg')
+                        ? SvgPicture.network(
+                            _expiringContract.mediaUrl,
+                            color: _expiringContract.color,
+                            height: 100,
+                          )
+                        : Image.asset(
+                          _expiringContract.iconUrl,
+                          fit: BoxFit.cover,
+                          color: _expiringContract.color,
+                        )).marginSymmetric(vertical: 10, horizontal: 10),
+                        // : CachedNetworkImage(
+                        //     fit: BoxFit.cover,
+                        //     imageUrl: _expiringContract.mediaUrl,
+                        //     placeholder: (context, url) => Image.asset(
+                        //       'assets/img/loading.gif',
+                        //       fit: BoxFit.cover,
+                        //     ),
+                        //     errorWidget: (context, url, error) => Icon(Icons.error_outline),
+                        //   )),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      _expiringContract.contractTitle ?? '',
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                      style: Get.textTheme.bodyText2,
+                    ),
+                  ),
+                  // TODO get service for each category
+                  // Text(
+                  //   "(" + category.services.length.toString() + ")",
+                  //   overflow: TextOverflow.fade,
+                  //   softWrap: false,
+                  //   style: Get.textTheme.caption,
+                  // ),
+                ],
+              )),
+          children: [
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 60, top: 10),
+              child: Text(
+                "Number:   " + _expiringContract.contractNumber,
+                maxLines: 2,
+                style: Get.textTheme.bodyText2,
+              ),
+            ), 
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 60, top: 10),
+              child: Text(
+                "Owner:   " + _expiringContract.contractOwner,
+                maxLines: 2,
+                style: Get.textTheme.bodyText2,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 60, top: 10),
+              child: Text(
+                "Expiry Date:   " + _expiringContract.expiryDate,
+                maxLines: 2,
+                style: Get.textTheme.bodyText2,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 60, top: 10, bottom: 10),
+              child: Text(
+                "Status:   " + _expiringContract.status,
+                maxLines: 2,
+                style: Get.textTheme.bodyText2,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,4 +1,4 @@
-import 'package:get/get.dart' show GetPage;
+import 'package:get/get.dart' show GetPage, Transition;
 
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/forgot_password_view.dart';
@@ -11,6 +11,7 @@ import '../modules/task/bindings/task_binding.dart';
 import '../modules/task/views/task_view.dart';
 import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
+import '../modules/search/views/search_view.dart';
 
 part 'app_routes.dart';
 
@@ -24,5 +25,6 @@ class AppPages {
     GetPage(name: Routes.EXPIRING_CONTRACTS, page: () => ExpiringContractsView(), binding: ContractsBinding()),
     GetPage(name: Routes.TASKS, page: () => TaskView(), binding: TaskBinding()),
     GetPage(name: Routes.NOTIFICATIONS, page: () => NotificationsView(), binding: NotificationsBinding()),
+    GetPage(name: Routes.SEARCH, page: () => SearchView(), binding: RootBinding(), transition: Transition.downToUp),
   ];
 }
