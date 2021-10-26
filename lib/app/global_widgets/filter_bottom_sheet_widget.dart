@@ -23,7 +23,8 @@ class FilterBottomSheetWidget extends GetView<SearchController> {
             padding: const EdgeInsets.only(top: 80),
             child: Container(
               padding: EdgeInsets.only(top: 20, bottom: 15, left: 4, right: 4),
-              child: controller.expiringContractStatus.isEmpty ? CircularLoadingWidget(height: 100)
+              child: GetBuilder<SearchController>(
+                builder: (_) => controller.expiringContractStatus.isEmpty ? CircularLoadingWidget(height: 100)
                 : SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: 
@@ -54,6 +55,7 @@ class FilterBottomSheetWidget extends GetView<SearchController> {
                       }
                     ),
                 )
+              )
             ),
           ),
           Container(
