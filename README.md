@@ -21,3 +21,5 @@
   - Make sure that you have already installed the Xcode
   - Run the iOS emulator using `open -a Simulator`
   - Run the project using `flutter run`
+
+If you liked my work, don’t forget to ⭐ star the repo to show your support.
